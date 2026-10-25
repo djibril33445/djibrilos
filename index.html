@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Djibril OS - Horizon</title>
+    <!-- Chargement de la police Google Sans (via Product Sans / Inter pour compatibilité web standard) -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: #E8F1F5; /* Fond bleu ciel très clair */
+            color: #1A2B4C; /* Texte bleu ardoise foncé */
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Formes géométriques Material You 3 en arrière-plan */
+        .bg-shape-1 {
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background-color: #D2E4EF;
+            border-radius: 40% 60% 60% 40% / 50% 30% 70% 50%;
+            z-index: 1;
+            filter: blur(2px);
+        }
+
+        .bg-shape-2 {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 55vw;
+            height: 55vw;
+            background-color: #BCD7E8;
+            border-radius: 60% 40% 30% 70% / 60% 50% 50% 40%;
+            z-index: 1;
+        }
+
+        .bg-circle {
+            position: absolute;
+            top: 20%;
+            right: 25%;
+            width: 12vw;
+            height: 12vw;
+            background-color: #3B7DC4; /* Le bleu vif de ton concept */
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .bg-pill {
+            position: absolute;
+            top: 45%;
+            right: 22%;
+            width: 14vw;
+            height: 6vw;
+            background-color: #FFFFFF;
+            border-radius: 100px;
+            transform: rotate(-30deg);
+            z-index: 2;
+        }
+
+        /* Conteneur Principal (Hero Section) */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            width: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .brand-wrapper {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #122342;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .slogan {
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #556B85;
+        }
+
+        p.description {
+            font-size: 1.25rem;
+            max-width: 500px;
+            line-height: 1.6;
+            color: #3A4F6B;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Bouton Material You (Pilule épurée) */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            background-color: #122342; /* Bouton sombre ultra clean */
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 18px 36px;
+            border-radius: 100px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(18, 35, 66, 0.15);
+        }
+
+        .btn-download:hover {
+            background-color: #1A335C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(18, 35, 66, 0.25);
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        /* Badge d'info */
+        .badge {
+            background-color: #FFFFFF;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #3B7DC4;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Responsive pour Mobile */
+        @media (max-width: 900px) {
+            body {
+                align-items: flex-start;
+                padding-top: 10vh;
+            }
+            h1 {
+                font-size: 3rem;
+            }
+            .container {
+                align-items: center;
+                text-align: center;
+                padding: 24px;
+            }
+            p.description {
+                max-width: 100%;
+            }
+            /* Masquer ou réduire les formes sur mobile pour la clarté */
+            .bg-circle, .bg-pill {
+                display: none;
+            }
+            .bg-shape-2 {
+                width: 90vw;
+                height: 90vw;
+                top: -30%;
+                right: -20%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Éléments d'arrière-plan Material 3 -->
+    <div class="bg-shape-1"></div>
+    <div class="bg-shape-2"></div>
+    <div class="bg-circle"></div>
+    <div class="bg-pill"></div>
+
+    <!-- Contenu de la vitrine -->
+    <div class="container">
+        
+        <div class="badge">Basé sur Debian stable</div>
+
+        <div class="brand-wrapper">
+            <h1>Djibril OS 1.0</h1>
+            <div class="slogan">A little more you.</div>
+        </div>
+
+        <p class="description">
+            Une distribution Linux moderne, fluide et ultra-épurée. Conçue pour offrir l'expérience de personnalisation dynamique Material You 3 au cœur de votre ordinateur.
+        </p>
+
+        <!-- REMPLACE LE # PAR TON LIEN OPENFACTORY DES QUE TON ISO EST PRETE -->
+        <a href="#" class="btn-download">
+            Télécharger l'ISO Horizon (V1)
+        </a>
+
+    </div>
+
+</body>
+</html>

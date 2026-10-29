@@ -25,8 +25,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.4s cubic-bezier(0.2,0,0,1), color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease; }
         body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
         
-        /* Positionnement des boutons du haut (Clair et visible partout) */
-        .theme-toggle { position: absolute; top: 24px; left: 24px;确 z-index: 40; background-color: var(--toggle-bg); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); padding: 10px 18px; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; height: 44px; }
+        .theme-toggle { position: absolute; top: 24px; left: 24px; z-index: 40; background-color: var(--toggle-bg); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); padding: 10px 18px; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; height: 44px; }
         .theme-toggle:hover { transform: scale(1.04); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
         
         .menu-button { position: absolute; top: 24px; right: 24px; z-index: 50; background-color: var(--menu-bg); border: 1px solid rgba(0,0,0,0.05); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
@@ -43,14 +42,12 @@
         .drawer-item:hover { background-color: var(--drawer-item-hover); transform: translateX(-4px); }
         .theme-toggle:active, .menu-button:active, .drawer-item:active { transform: scale(0.96); }
         
-        /* Arrière-plans géométriques */
+        /* Style du Logo pour l'en-tête */
+        .brand-logo { width: 110px; height: 110px; object-fit: contain; margin-bottom: 16px; transform: scale(1); }
+        
         .bg-shape-left { position: absolute; bottom: -15%; left: -10%; width: 55vw; height: 55vw; background-color: var(--shape-light-large); border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%; z-index: 1; }
         .bg-shape-right { position: absolute; top: -20%; right: -15%; width: 60vw; height: 60vw; background-color: var(--shape-medium-right); border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; z-index: 1; }
-        .bg-circle { position: absolute; top: 13%; right: 18%; width: 13vw; height: 13vw; background-color: var(--shape-circle); border-radius: 50%; z-index: 2; }
-        .bg-pill { position: absolute; top: 36%; right: 22%; width: 14vw; height: 6vw; background-color: var(--shape-pill); border-radius: 100px; transform: rotate(-33deg); z-index: 3; }
-        .bg-circle-bottom { position: absolute; bottom: -15%; right: 5%; width: 28vw; height: 28vw; background-color: var(--shape-accent-circle); border-radius: 50%; z-index: 2; }
         
-        /* Conteneur principal */
         .container { position: relative; z-index: 10; max-width: 1200px; width: 100%; padding: 80px 40px 40px 40px; display: flex; flex-direction: column; align-items: flex-start; }
         .badge { background-color: var(--badge-bg); padding: 8px 18px; border-radius: 16px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; color: var(--shape-circle); margin-bottom: 24px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .brand-wrapper { margin-bottom: 24px; }
@@ -60,32 +57,32 @@
         .btn-download { display: inline-flex; align-items: center; background-color: var(--btn-bg); color: var(--btn-text); text-decoration: none; padding: 18px 36px; border-radius: 100px; font-size: 1.1rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .btn-download:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
         
-        /* Correction responsive mobile pour forcer l'affichage des boutons */
         @media (max-width: 900px) { 
             h1 { font-size: 3rem; } 
-            .container { align-items: center; text-align: center; padding-top: 120px; padding-left: 20px; padding-right: 20px; } 
+            .container { align-items: center; text-align: center; padding-top: 140px; padding-left: 20px; padding-right: 20px; } 
             .nav-drawer { width: 280px; }
-            .bg-circle, .bg-pill, .bg-circle-bottom { display: none; } 
+            .brand-logo { width: 90px; height: 90px; }
         }
     </style>
 </head>
 <body>
-    <!-- Bouton Dark Mode (Haut à gauche) -->
     <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()"><span>Dark Mode</span></button>
     
-    <!-- Bouton Menu Hamburger (Haut à droite) -->
     <button class="menu-button" id="menuBtn" aria-label="Menu" onclick="toggleMenu()">
         <div class="menu-line"></div><div class="menu-line"></div><div class="menu-line"></div>
     </button>
     
-    <!-- Tiroir latéral caché -->
     <nav id="navDrawer" class="nav-drawer">
         <a href="#" class="drawer-item">📥 Download ISO</a>
         <a href="#" class="drawer-item">ℹ️ Infos</a>
     </nav>
     
     <div class="bg-shape-left"></div><div class="bg-shape-right"></div>
+    
     <div class="container">
+        <!-- Logo officiel intégré juste au-dessus du titre principal -->
+        <img src="logo.png" alt="Djibril OS Logo" class="brand-logo">
+
         <div class="badge">Basé sur Debian stable</div>
         <div class="brand-wrapper">
             <h1>Djibril OS 1.0</h1>
@@ -94,6 +91,7 @@
         <p class="description">Une distribution Linux moderne, fluide et ultra-épurée. Conçue pour offrir l'expérience de personnalisation dynamique Material You 3 au cœur de votre ordinateur.</p>
         <a href="#" class="btn-download">Télécharger l'ISO Horizon (V1)</a>
     </div>
+
     <script>
         function toggleMenu() {
             document.getElementById('menuBtn').classList.toggle('active');

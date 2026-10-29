@@ -4,215 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Djibril OS - Horizon</title>
-    <!-- Chargement de la police Google Sans (via Product Sans / Inter pour compatibilité web standard) -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Google Sans', 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
+        :root {
+            --bg-body: #C2E3F4; --text-main: #0B1D3A; --text-sub: #3A506B;              
+            --shape-light-large: #DCEFF9; --shape-medium-right: #5599CE;    
+            --shape-circle: #1D66C4; --shape-pill: #E2EFF7; --shape-accent-circle: #A6C3EE;   
+            --btn-bg: #0B1D3A; --btn-text: #FFFFFF; --badge-bg: #FFFFFF;
+            --toggle-bg: #FFFFFF; --menu-bg: #FFFFFF; --menu-line: #0B1D3A;
+            --drawer-bg: #EAF5FA; --drawer-item-hover: #D2E7F5;
         }
-
-        body {
-            background-color: #E8F1F5; /* Fond bleu ciel très clair */
-            color: #1A2B4C; /* Texte bleu ardoise foncé */
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        [data-theme="dark"] {
+            --bg-body: #101419; --text-main: #E2E2E6; --text-sub: #8C9199;              
+            --shape-light-large: #2F3B4C; --shape-medium-right: #0B4596;    
+            --shape-circle: #122C54; --shape-pill: #3D4B5E; --shape-accent-circle: #C2D5EE;   
+            --btn-bg: #E2E2E6; --btn-text: #101419; --badge-bg: #1F252C;
+            --toggle-bg: #1F252C; --menu-bg: #1F252C; --menu-line: #E2E2E6;
+            --drawer-bg: #1A212A; --drawer-item-hover: #263243;
         }
-
-        /* Formes géométriques Material You 3 en arrière-plan */
-        .bg-shape-1 {
-            position: absolute;
-            bottom: -10%;
-            left: -10%;
-            width: 60vw;
-            height: 60vw;
-            background-color: #D2E4EF;
-            border-radius: 40% 60% 60% 40% / 50% 30% 70% 50%;
-            z-index: 1;
-            filter: blur(2px);
-        }
-
-        .bg-shape-2 {
-            position: absolute;
-            top: -20%;
-            right: -10%;
-            width: 55vw;
-            height: 55vw;
-            background-color: #BCD7E8;
-            border-radius: 60% 40% 30% 70% / 60% 50% 50% 40%;
-            z-index: 1;
-        }
-
-        .bg-circle {
-            position: absolute;
-            top: 20%;
-            right: 25%;
-            width: 12vw;
-            height: 12vw;
-            background-color: #3B7DC4; /* Le bleu vif de ton concept */
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .bg-pill {
-            position: absolute;
-            top: 45%;
-            right: 22%;
-            width: 14vw;
-            height: 6vw;
-            background-color: #FFFFFF;
-            border-radius: 100px;
-            transform: rotate(-30deg);
-            z-index: 2;
-        }
-
-        /* Conteneur Principal (Hero Section) */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            width: 100%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .brand-wrapper {
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: #122342;
-            letter-spacing: -1px;
-            margin-bottom: 5px;
-        }
-
-        .slogan {
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #556B85;
-        }
-
-        p.description {
-            font-size: 1.25rem;
-            max-width: 500px;
-            line-height: 1.6;
-            color: #3A4F6B;
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-
-        /* Bouton Material You (Pilule épurée) */
-        .btn-download {
-            display: inline-flex;
-            align-items: center;
-            background-color: #122342; /* Bouton sombre ultra clean */
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 18px 36px;
-            border-radius: 100px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 12px rgba(18, 35, 66, 0.15);
-        }
-
-        .btn-download:hover {
-            background-color: #1A335C;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(18, 35, 66, 0.25);
-        }
-
-        .btn-download:active {
-            transform: translateY(0);
-        }
-
-        /* Badge d'info */
-        .badge {
-            background-color: #FFFFFF;
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #3B7DC4;
-            margin-bottom: 20px;
-            display: inline-block;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-
-        /* Responsive pour Mobile */
-        @media (max-width: 900px) {
-            body {
-                align-items: flex-start;
-                padding-top: 10vh;
-            }
-            h1 {
-                font-size: 3rem;
-            }
-            .container {
-                align-items: center;
-                text-align: center;
-                padding: 24px;
-            }
-            p.description {
-                max-width: 100%;
-            }
-            /* Masquer ou réduire les formes sur mobile pour la clarté */
-            .bg-circle, .bg-pill {
-                display: none;
-            }
-            .bg-shape-2 {
-                width: 90vw;
-                height: 90vw;
-                top: -30%;
-                right: -20%;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.4s cubic-bezier(0.2,0,0,1), color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+        body { background-color: var(--bg-body); color: var(--text-main); overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .theme-toggle { position: absolute; top: 32px; left: 40px; z-index: 20; background-color: var(--toggle-bg); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); padding: 14px 24px; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; height: 48px; }
+        .theme-toggle:hover { transform: scale(1.04); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        .menu-button { position: absolute; top: 32px; right: 40px; z-index: 30; background-color: var(--menu-bg); border: 1px solid rgba(0,0,0,0.05); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+        .menu-button:hover { transform: scale(1.06); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        .menu-line { width: 18px; height: 2px; background-color: var(--menu-line); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .menu-button.active .menu-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .menu-button.active .menu-line:nth-child(2) { opacity: 0; }
+        .menu-button.active .menu-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+        .nav-drawer { position: absolute; top: 0; right: -360px; width: 340px; height: 100vh; background-color: var(--drawer-bg); z-index: 25; box-shadow: -10px 0 40px rgba(0,0,0,0.08); padding: 120px 24px 40px 24px; display: flex; flex-direction: column; gap: 12px; transition: right 0.4s cubic-bezier(0.2,0,0,1); }
+        .nav-drawer.open { right: 0; }
+        .drawer-item { display: flex; align-items: center; padding: 16px 24px; border-radius: 100px; text-decoration: none; color: var(--text-main); font-size: 1.1rem; font-weight: 500; cursor: pointer; }
+        .drawer-item:hover { background-color: var(--drawer-item-hover); transform: translateX(-4px); }
+        .theme-toggle:active, .menu-button:active, .drawer-item:active { transform: scale(0.96); }
+        .bg-shape-left { position: absolute; bottom: -15%; left: -10%; width: 55vw; height: 55vw; background-color: var(--shape-light-large); border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%; z-index: 1; }
+        .bg-shape-right { position: absolute; top: -20%; right: -15%; width: 60vw; height: 60vw; background-color: var(--shape-medium-right); border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; z-index: 1; }
+        .bg-circle { position: absolute; top: 13%; right: 18%; width: 13vw; height: 13vw; background-color: var(--shape-circle); border-radius: 50%; z-index: 2; }
+        .bg-pill { position: absolute; top: 36%; right: 22%; width: 14vw; height: 6vw; background-color: var(--shape-pill); border-radius: 100px; transform: rotate(-33deg); z-index: 3; }
+        .bg-circle-bottom { position: absolute; bottom: -15%; right: 5%; width: 28vw; height: 28vw; background-color: var(--shape-accent-circle); border-radius: 50%; z-index: 2; }
+        .container { position: relative; z-index: 10; max-width: 1200px; width: 100%; padding: 0 60px; display: flex; flex-direction: column; align-items: flex-start; }
+        .badge { background-color: var(--badge-bg); padding: 8px 18px; border-radius: 16px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; color: var(--shape-circle); margin-bottom: 32px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .brand-wrapper { margin-bottom: 24px; }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 5rem; font-weight: 700; color: var(--text-main); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
+        .slogan { font-size: 1.1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 5px; color: var(--text-sub); }
+        p.description { font-size: 1.3rem; max-width: 520px; line-height: 1.6; color: var(--text-sub); margin-bottom: 48px; }
+        .btn-download { display: inline-flex; align-items: center; background-color: var(--btn-bg); color: var(--btn-text); text-decoration: none; padding: 20px 40px; border-radius: 100px; font-size: 1.15rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .btn-download:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+        @media (max-width: 900px) { h1 { font-size: 3.5rem; } .container { align-items: center; text-align: center; padding: 0 24px; } .menu-button { top: 20px; right: 20px; width: 40px; height: 40px; } .theme-toggle { top: 20px; left: 20px; padding: 10px 16px; font-size: 0.85rem; height: 40px; } .nav-drawer { width: 100%; right: -100%; padding-top: 100px; } .bg-circle, .bg-pill, .bg-circle-bottom { display: none; } }
     </style>
 </head>
 <body>
-
-    <!-- Éléments d'arrière-plan Material 3 -->
-    <div class="bg-shape-1"></div>
-    <div class="bg-shape-2"></div>
-    <div class="bg-circle"></div>
-    <div class="bg-pill"></div>
-
-    <!-- Contenu de la vitrine -->
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()"><span>Dark Mode</span></button>
+    <button class="menu-button" id="menuBtn" aria-label="Menu" onclick="toggleMenu()">
+        <div class="menu-line"></div><div class="menu-line"></div><div class="menu-line"></div>
+    </button>
+    <nav id="navDrawer" class="nav-drawer">
+        <a href="#" class="drawer-item">📥 Download ISO</a>
+        <a href="#" class="drawer-item">ℹ️ Infos</a>
+    </nav>
+    <div class="bg-shape-left"></div><div class="bg-shape-right"></div><div class="bg-circle"></div><div class="bg-pill"></div><div class="bg-circle-bottom"></div>
     <div class="container">
-        
         <div class="badge">Basé sur Debian stable</div>
-
         <div class="brand-wrapper">
-            <h1>Djibril OS 1.0</h1>
+            <h1>Djibril OS</h1>
             <div class="slogan">A little more you.</div>
         </div>
-
-        <p class="description">
-            Une distribution Linux moderne, fluide et ultra-épurée. Conçue pour offrir l'expérience de personnalisation dynamique Material You 3 au cœur de votre ordinateur.
-        </p>
-
-        <!-- REMPLACE LE # PAR TON LIEN OPENFACTORY DES QUE TON ISO EST PRETE -->
-        <a href="#" class="btn-download">
-            Télécharger l'ISO Horizon (V1)
-        </a>
-
+        <p class="description">Une distribution Linux moderne, fluide et ultra-épurée. Conçue pour offrir l'expérience de personnalisation dynamique Material You 3 au cœur de votre ordinateur.</p>
+        <a href="#" class="btn-download">Télécharger l'ISO Horizon (V1)</a>
     </div>
-
+    <script>
+        function toggleMenu() {
+            document.getElementById('menuBtn').classList.toggle('active');
+            document.getElementById('navDrawer').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const drawer = document.getElementById('navDrawer');
+            const btn = document.getElementById('menuBtn');
+            if (!drawer.contains(e.target) && !btn.contains(e.target) && drawer.classList.contains('open')) {
+                btn.classList.remove('active'); drawer.classList.remove('open');
+            }
+        });
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btnText = document.querySelector('#themeBtn span');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme'); btnText.textContent = 'Dark Mode';
+            } else {
+                html.setAttribute('data-theme', 'dark'); btnText.textContent = 'Light Mode';
+            }
+        }
+    </script>
 </body>
 </html>

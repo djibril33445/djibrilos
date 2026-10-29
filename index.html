@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Djibril OS - Horizon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
@@ -25,50 +23,72 @@
             --drawer-bg: #1A212A; --drawer-item-hover: #263243;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.4s cubic-bezier(0.2,0,0,1), color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease; }
-        body { background-color: var(--bg-body); color: var(--text-main); overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
-        .theme-toggle { position: absolute; top: 32px; left: 40px; z-index: 20; background-color: var(--toggle-bg); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); padding: 14px 24px; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; height: 48px; }
+        body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        
+        /* Positionnement des boutons du haut (Clair et visible partout) */
+        .theme-toggle { position: absolute; top: 24px; left: 24px;确 z-index: 40; background-color: var(--toggle-bg); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); padding: 10px 18px; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; height: 44px; }
         .theme-toggle:hover { transform: scale(1.04); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
-        .menu-button { position: absolute; top: 32px; right: 40px; z-index: 30; background-color: var(--menu-bg); border: 1px solid rgba(0,0,0,0.05); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+        
+        .menu-button { position: absolute; top: 24px; right: 24px; z-index: 50; background-color: var(--menu-bg); border: 1px solid rgba(0,0,0,0.05); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
         .menu-button:hover { transform: scale(1.06); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        
         .menu-line { width: 18px; height: 2px; background-color: var(--menu-line); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
         .menu-button.active .menu-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
         .menu-button.active .menu-line:nth-child(2) { opacity: 0; }
         .menu-button.active .menu-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-        .nav-drawer { position: absolute; top: 0; right: -360px; width: 340px; height: 100vh; background-color: var(--drawer-bg); z-index: 25; box-shadow: -10px 0 40px rgba(0,0,0,0.08); padding: 120px 24px 40px 24px; display: flex; flex-direction: column; gap: 12px; transition: right 0.4s cubic-bezier(0.2,0,0,1); }
+        
+        .nav-drawer { position: fixed; top: 0; right: -360px; width: 300px; height: 100vh; background-color: var(--drawer-bg); z-index: 45; box-shadow: -10px 0 40px rgba(0,0,0,0.08); padding: 100px 24px 40px 24px; display: flex; flex-direction: column; gap: 12px; transition: right 0.4s cubic-bezier(0.2,0,0,1); }
         .nav-drawer.open { right: 0; }
-        .drawer-item { display: flex; align-items: center; padding: 16px 24px; border-radius: 100px; text-decoration: none; color: var(--text-main); font-size: 1.1rem; font-weight: 500; cursor: pointer; }
+        .drawer-item { display: flex; align-items: center; padding: 14px 20px; border-radius: 100px; text-decoration: none; color: var(--text-main); font-size: 1.05rem; font-weight: 500; cursor: pointer; }
         .drawer-item:hover { background-color: var(--drawer-item-hover); transform: translateX(-4px); }
         .theme-toggle:active, .menu-button:active, .drawer-item:active { transform: scale(0.96); }
+        
+        /* Arrière-plans géométriques */
         .bg-shape-left { position: absolute; bottom: -15%; left: -10%; width: 55vw; height: 55vw; background-color: var(--shape-light-large); border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%; z-index: 1; }
         .bg-shape-right { position: absolute; top: -20%; right: -15%; width: 60vw; height: 60vw; background-color: var(--shape-medium-right); border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; z-index: 1; }
         .bg-circle { position: absolute; top: 13%; right: 18%; width: 13vw; height: 13vw; background-color: var(--shape-circle); border-radius: 50%; z-index: 2; }
         .bg-pill { position: absolute; top: 36%; right: 22%; width: 14vw; height: 6vw; background-color: var(--shape-pill); border-radius: 100px; transform: rotate(-33deg); z-index: 3; }
         .bg-circle-bottom { position: absolute; bottom: -15%; right: 5%; width: 28vw; height: 28vw; background-color: var(--shape-accent-circle); border-radius: 50%; z-index: 2; }
-        .container { position: relative; z-index: 10; max-width: 1200px; width: 100%; padding: 0 60px; display: flex; flex-direction: column; align-items: flex-start; }
-        .badge { background-color: var(--badge-bg); padding: 8px 18px; border-radius: 16px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; color: var(--shape-circle); margin-bottom: 32px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        
+        /* Conteneur principal */
+        .container { position: relative; z-index: 10; max-width: 1200px; width: 100%; padding: 80px 40px 40px 40px; display: flex; flex-direction: column; align-items: flex-start; }
+        .badge { background-color: var(--badge-bg); padding: 8px 18px; border-radius: 16px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; color: var(--shape-circle); margin-bottom: 24px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .brand-wrapper { margin-bottom: 24px; }
-        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 5rem; font-weight: 700; color: var(--text-main); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 4.5rem; font-weight: 700; color: var(--text-main); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
         .slogan { font-size: 1.1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 5px; color: var(--text-sub); }
-        p.description { font-size: 1.3rem; max-width: 520px; line-height: 1.6; color: var(--text-sub); margin-bottom: 48px; }
-        .btn-download { display: inline-flex; align-items: center; background-color: var(--btn-bg); color: var(--btn-text); text-decoration: none; padding: 20px 40px; border-radius: 100px; font-size: 1.15rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        p.description { font-size: 1.25rem; max-width: 520px; line-height: 1.6; color: var(--text-sub); margin-bottom: 40px; }
+        .btn-download { display: inline-flex; align-items: center; background-color: var(--btn-bg); color: var(--btn-text); text-decoration: none; padding: 18px 36px; border-radius: 100px; font-size: 1.1rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .btn-download:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-        @media (max-width: 900px) { h1 { font-size: 3.5rem; } .container { align-items: center; text-align: center; padding: 0 24px; } .menu-button { top: 20px; right: 20px; width: 40px; height: 40px; } .theme-toggle { top: 20px; left: 20px; padding: 10px 16px; font-size: 0.85rem; height: 40px; } .nav-drawer { width: 100%; right: -100%; padding-top: 100px; } .bg-circle, .bg-pill, .bg-circle-bottom { display: none; } }
+        
+        /* Correction responsive mobile pour forcer l'affichage des boutons */
+        @media (max-width: 900px) { 
+            h1 { font-size: 3rem; } 
+            .container { align-items: center; text-align: center; padding-top: 120px; padding-left: 20px; padding-right: 20px; } 
+            .nav-drawer { width: 280px; }
+            .bg-circle, .bg-pill, .bg-circle-bottom { display: none; } 
+        }
     </style>
 </head>
 <body>
+    <!-- Bouton Dark Mode (Haut à gauche) -->
     <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()"><span>Dark Mode</span></button>
+    
+    <!-- Bouton Menu Hamburger (Haut à droite) -->
     <button class="menu-button" id="menuBtn" aria-label="Menu" onclick="toggleMenu()">
         <div class="menu-line"></div><div class="menu-line"></div><div class="menu-line"></div>
     </button>
+    
+    <!-- Tiroir latéral caché -->
     <nav id="navDrawer" class="nav-drawer">
         <a href="#" class="drawer-item">📥 Download ISO</a>
         <a href="#" class="drawer-item">ℹ️ Infos</a>
     </nav>
-    <div class="bg-shape-left"></div><div class="bg-shape-right"></div><div class="bg-circle"></div><div class="bg-pill"></div><div class="bg-circle-bottom"></div>
+    
+    <div class="bg-shape-left"></div><div class="bg-shape-right"></div>
     <div class="container">
         <div class="badge">Basé sur Debian stable</div>
         <div class="brand-wrapper">
-            <h1>Djibril OS</h1>
+            <h1>Djibril OS 1.0</h1>
             <div class="slogan">A little more you.</div>
         </div>
         <p class="description">Une distribution Linux moderne, fluide et ultra-épurée. Conçue pour offrir l'expérience de personnalisation dynamique Material You 3 au cœur de votre ordinateur.</p>

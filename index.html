@@ -12,7 +12,7 @@
             --shape-circle: #1D66C4; --shape-pill: #E2EFF7; --shape-accent-circle: #A6C3EE;   
             --btn-bg: #0B1D3A; --btn-text: #FFFFFF; --badge-bg: #FFFFFF;
             --toggle-bg: #FFFFFF; --menu-bg: #FFFFFF; --menu-line: #0B1D3A;
-            --drawer-bg: #EAF5FA; --drawer-item-hover: #D2E7F5;
+            --drawer-bg: rgba(234, 245, 250, 0.95); --drawer-item-hover: #D2E7F5;
         }
         [data-theme="dark"] {
             --bg-body: #101419; --text-main: #E2E2E6; --text-sub: #8C9199;              
@@ -20,11 +20,12 @@
             --shape-circle: #122C54; --shape-pill: #3D4B5E; --shape-accent-circle: #C2D5EE;   
             --btn-bg: #E2E2E6; --btn-text: #101419; --badge-bg: #1F252C;
             --toggle-bg: #1F252C; --menu-bg: #1F252C; --menu-line: #E2E2E6;
-            --drawer-bg: #1A212A; --drawer-item-hover: #263243;
+            --drawer-bg: rgba(26, 33, 42, 0.95); --drawer-item-hover: #263243;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.4s cubic-bezier(0.2,0,0,1), color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease; }
         body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
         
+        /* Boutons fixes en haut de page */
         .theme-toggle { position: absolute; top: 24px; left: 24px; z-index: 40; background-color: var(--toggle-bg); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); padding: 10px 18px; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; height: 44px; }
         .theme-toggle:hover { transform: scale(1.04); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
         
@@ -36,19 +37,22 @@
         .menu-button.active .menu-line:nth-child(2) { opacity: 0; }
         .menu-button.active .menu-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
         
-        .nav-drawer { position: fixed; top: 0; right: -360px; width: 300px; height: 100vh; background-color: var(--drawer-bg); z-index: 45; box-shadow: -10px 0 40px rgba(0,0,0,0.08); padding: 100px 24px 40px 24px; display: flex; flex-direction: column; gap: 12px; transition: right 0.4s cubic-bezier(0.2,0,0,1); }
+        /* Menu tiroir latéral PixelOS corrigé */
+        .nav-drawer { position: fixed; top: 0; right: -320px; width: 300px; height: 100%; background-color: var(--drawer-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 45; box-shadow: -10px 0 40px rgba(0,0,0,0.1); padding: 100px 24px 40px 24px; display: flex; flex-direction: column; gap: 12px; transition: right 0.4s cubic-bezier(0.2, 0, 0, 1); }
         .nav-drawer.open { right: 0; }
         .drawer-item { display: flex; align-items: center; padding: 14px 20px; border-radius: 100px; text-decoration: none; color: var(--text-main); font-size: 1.05rem; font-weight: 500; cursor: pointer; }
         .drawer-item:hover { background-color: var(--drawer-item-hover); transform: translateX(-4px); }
         .theme-toggle:active, .menu-button:active, .drawer-item:active { transform: scale(0.96); }
         
-        /* Style du Logo pour l'en-tête */
-        .brand-logo { width: 110px; height: 110px; object-fit: contain; margin-bottom: 16px; transform: scale(1); }
+        /* Logo d'en-tête */
+        .brand-logo { width: 110px; height: 110px; object-fit: contain; margin-bottom: 16px; }
         
+        /* Éléments géométriques */
         .bg-shape-left { position: absolute; bottom: -15%; left: -10%; width: 55vw; height: 55vw; background-color: var(--shape-light-large); border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%; z-index: 1; }
         .bg-shape-right { position: absolute; top: -20%; right: -15%; width: 60vw; height: 60vw; background-color: var(--shape-medium-right); border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; z-index: 1; }
         
-        .container { position: relative; z-index: 10; max-width: 1200px; width: 100%; padding: 80px 40px 40px 40px; display: flex; flex-direction: column; align-items: flex-start; }
+        /* Zone de contenu principale */
+        .container { position: relative; z-index: 10; max-width: 1200px; width: 100%; padding: 120px 40px 40px 40px; display: flex; flex-direction: column; align-items: flex-start; }
         .badge { background-color: var(--badge-bg); padding: 8px 18px; border-radius: 16px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; color: var(--shape-circle); margin-bottom: 24px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .brand-wrapper { margin-bottom: 24px; }
         h1 { font-family: 'Space Grotesk', sans-serif; font-size: 4.5rem; font-weight: 700; color: var(--text-main); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
@@ -80,12 +84,12 @@
     <div class="bg-shape-left"></div><div class="bg-shape-right"></div>
     
     <div class="container">
-        <!-- Logo officiel intégré juste au-dessus du titre principal -->
-        <img src="logo.png" alt="Djibril OS Logo" class="brand-logo">
+        <!-- Supprime ou laisse cette ligne si tu ajoutes ton fichier logo.png sur GitHub -->
+        <img src="logo.png" alt="" class="brand-logo" onerror="this.style.display='none'">
 
         <div class="badge">Basé sur Debian stable</div>
         <div class="brand-wrapper">
-            <h1>Djibril OS 1.0</h1>
+            <h1>Djibril OS</h1>
             <div class="slogan">A little more you.</div>
         </div>
         <p class="description">Une distribution Linux moderne, fluide et ultra-épurée. Conçue pour offrir l'expérience de personnalisation dynamique Material You 3 au cœur de votre ordinateur.</p>
